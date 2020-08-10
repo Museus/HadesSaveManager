@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SaveManager));
             this.gboxSelectProfile = new System.Windows.Forms.GroupBox();
             this.radioProfile4 = new System.Windows.Forms.RadioButton();
             this.radioProfile3 = new System.Windows.Forms.RadioButton();
@@ -305,6 +306,7 @@
             this.Controls.Add(this.linkChangeSavePath);
             this.Controls.Add(this.lblSaveFolder);
             this.Controls.Add(this.gboxSelectProfile);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SaveManager";
             this.Text = "Hades Save Manager";
             this.gboxSelectProfile.ResumeLayout(false);
