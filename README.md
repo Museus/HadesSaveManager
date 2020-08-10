@@ -11,7 +11,7 @@ One immediate benefit of this is that it allows you to practice a boss fight
 that you have trouble with. Another benefit is the ability to create a routed
 run, which follows an exact pre-determined path through the game. An example
 of this is the world record for the Nighty Night patch, which can be found
-[here.](https://www.speedrun.com/hades/run/zx24768m)
+[here.](https://www.youtube.com/watch?v=leyVtEnXowk)
 
 # Installation
 
