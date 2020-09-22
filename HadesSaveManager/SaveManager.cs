@@ -4,6 +4,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace HadesSaveManager {
@@ -25,6 +26,7 @@ namespace HadesSaveManager {
                 ["run"] = "Profile{0}_Temp.sav",
                 ["settings"] = "Profile{0}.sjson",
                 ["controls"] = "Profile{0}.ctrls",
+                ["v"] = "Profile{0}.v.sav",
             };
 
             InitializeComponent();
@@ -346,7 +348,7 @@ namespace HadesSaveManager {
 
             File.Delete(profileSettingsFile);
             File.Move(tempFile, profileSettingsFile);
-            return true;
+            return SetValidFlag();
         }
 
         /// <summary>
@@ -470,6 +472,34 @@ namespace HadesSaveManager {
             // equal to "file2byte" at this point only if the files are
             // the same.
             return ((file1byte - file2byte) == 0);
+        }
+
+        /// <summary>
+        /// Version 1.0 of Hades added a file that tracks the validity of a
+        /// checkpoint. This means we have to modify that file when loading a
+        /// snapshot, in order to tell the game to grab it.
+        /// </summary>
+        /// <returns>true if successfully set valid flag</returns>
+        private bool SetValidFlag() {
+            string validFormatted = String.Format(fileMap["v"], profileNum.ToString());
+            string profileValidFile = Path.Combine(saveFolder, validFormatted);
+
+            if (!File.Exists(profileValidFile)) {
+                return true;
+            }
+
+            Byte[] byte_array;
+            using (var validReader = new BinaryReader(File.Open(profileValidFile, FileMode.Open)))
+                byte_array = validReader.ReadBytes(9);
+                byte_array[8] = 1;
+
+            string tempFile = Path.GetTempFileName();
+            using (var validWriter = new BinaryWriter(File.Open(tempFile, FileMode.Create)))
+                validWriter.Write(byte_array);
+
+            File.Delete(profileValidFile);
+            File.Move(tempFile, profileValidFile);
+            return true;
         }
     }
 }
