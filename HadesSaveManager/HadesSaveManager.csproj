@@ -6,6 +6,13 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>hsm.ico</ApplicationIcon>
     <NoWin32Manifest>true</NoWin32Manifest>
+    <Version>1.1.0</Version>
+    <Authors>Museus</Authors>
+    <Description>Create and load snapshots of your Hades runs.</Description>
+    <Copyright>2020</Copyright>
+    <PackageProjectUrl>http://github.com/Museus/HadesSaveManager</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>Added work-around for 1.0 save-scum prevention.</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
