@@ -12,6 +12,7 @@ namespace HadesSaveManager {
         private int profileNum;
         private string saveFolder, routeFolder;
         private readonly Dictionary<string, string> fileMap;
+        private bool confirmLoad;
 
         /// <summary>
         /// Initialize the SaveManager state.
@@ -20,6 +21,7 @@ namespace HadesSaveManager {
             profileNum = 1;
             saveFolder = "";
             routeFolder = "";
+            confirmLoad = true;
 
             fileMap = new Dictionary<string, string> {
                 ["profile"] = "Profile{0}.sav",
@@ -182,7 +184,7 @@ namespace HadesSaveManager {
             Dictionary<string, string> paths = GetPaths(snapshotName);
 
             if (File.Exists(paths["routeProfile"])) {
-                if (File.Exists(paths["profile"]) || File.Exists(paths["run"])) {
+                if (confirmLoad && (File.Exists(paths["profile"]) || File.Exists(paths["run"]))) {
                     DialogResult overwriteRun = MessageBox.Show(
                        String.Format("This will overwrite profile {0}. Are you sure you want to do this?", profileNum),
                        "Overwrite Run?",
@@ -190,6 +192,9 @@ namespace HadesSaveManager {
                     );
 
                     if (overwriteRun != DialogResult.Yes) return;
+
+                    // Once they've confirmed once for this profile, don't ask again
+                    confirmLoad = false;
                 }
 
                 File.Delete(paths["runBackup"]);
@@ -256,6 +261,8 @@ namespace HadesSaveManager {
         /// <param name="sender">RadioButton object that was clicked</param>
         /// <param name="e">EventArgs from the click event</param>
         private void RadioProfile_CheckedChanged(object sender, EventArgs e) {
+            // Make sure they're prompted next time they load a snapshot
+            confirmLoad = true;
             profileNum = int.Parse((sender as RadioButton).Tag.ToString());
             SaveState();
         }
