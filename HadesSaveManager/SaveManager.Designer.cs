@@ -51,6 +51,7 @@
             this.cboxLoadSnapshot = new System.Windows.Forms.ComboBox();
             this.linkOpenSaveFolder = new System.Windows.Forms.LinkLabel();
             this.linkOpenRouteFolder = new System.Windows.Forms.LinkLabel();
+            this.btnLoadSeed = new System.Windows.Forms.Button();
             this.gboxSelectProfile.SuspendLayout();
             this.gboxNewSnapshot.SuspendLayout();
             this.gboxLoadSnapshot.SuspendLayout();
@@ -290,11 +291,22 @@
             this.linkOpenRouteFolder.Text = "(Open)";
             this.linkOpenRouteFolder.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkOpenFolder_LinkClicked);
             // 
+            // btnLoadSeed
+            // 
+            this.btnLoadSeed.Location = new System.Drawing.Point(230, 159);
+            this.btnLoadSeed.Name = "btnLoadSeed";
+            this.btnLoadSeed.Size = new System.Drawing.Size(75, 23);
+            this.btnLoadSeed.TabIndex = 8;
+            this.btnLoadSeed.Text = "Load Seed";
+            this.btnLoadSeed.UseVisualStyleBackColor = true;
+            this.btnLoadSeed.Click += new System.EventHandler(this.BtnLoadSeed_Click);
+            // 
             // SaveManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(323, 429);
+            this.Controls.Add(this.btnLoadSeed);
             this.Controls.Add(this.linkOpenRouteFolder);
             this.Controls.Add(this.linkOpenSaveFolder);
             this.Controls.Add(this.gboxLoadSnapshot);
@@ -344,6 +356,7 @@
         private System.Windows.Forms.LinkLabel linkOpenSaveFolder;
         private System.Windows.Forms.LinkLabel linkOpenRouteFolder;
         private System.Windows.Forms.Button btnDeleteSnapshot;
+        private System.Windows.Forms.Button btnLoadSeed;
     }
 }
 

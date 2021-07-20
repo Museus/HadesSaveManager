@@ -210,6 +210,56 @@ namespace HadesSaveManager {
         }
 
         /// <summary>
+        /// Load the Profile for the selected Route, but no run
+        /// </summary>
+        /// <param name="sender">Button that was clicked</param>
+        /// <param name="e">EventArgs for the click</param>
+        private void BtnLoadSeed_Click(object sender, EventArgs e) {
+
+            string currentRunFile = String.Format(fileMap["run"], profileNum.ToString());
+            string profileFile = String.Format(fileMap["profile"], profileNum.ToString());
+            string settingsFile = String.Format(fileMap["settings"], profileNum.ToString());
+
+            Dictionary<string, string> paths = new Dictionary<string, string> {
+                ["run"] = Path.Combine(saveFolder, currentRunFile),
+                ["profile"] = Path.Combine(saveFolder, profileFile),
+                ["settings"] = Path.Combine(saveFolder, settingsFile),
+                ["routeProfile"] = Path.Combine(routeFolder, @"Profile.sav"),
+                ["routeSettings"] = Path.Combine(routeFolder, @"Profile.sjson"),
+            };
+
+            paths["runBackup"] = paths["run"] + ".bak";
+            paths["settingsBackup"] = paths["settings"] + ".bak";
+
+            if (!FoldersInitialized())
+                return;
+
+            if (File.Exists(paths["routeProfile"])) {
+                if (confirmLoad && (File.Exists(paths["profile"]) || File.Exists(paths["run"]))) {
+                    DialogResult overwriteRun = MessageBox.Show(
+                       String.Format("This will overwrite profile {0}. Are you sure you want to do this?", profileNum),
+                       "Overwrite Run?",
+                       MessageBoxButtons.YesNo
+                    );
+
+                    if (overwriteRun != DialogResult.Yes) return;
+
+                    // Once they've confirmed once for this profile, don't ask again
+                    confirmLoad = false;
+                }
+
+                File.Delete(paths["runBackup"]);
+                File.Delete(paths["settingsBackup"]);
+                File.Delete(paths["profile"]);
+                File.Delete(paths["run"]);
+
+                MakeValidCheckpoint();
+
+                File.Copy(paths["routeProfile"], paths["profile"], true);
+            }
+        }
+
+        /// <summary>
         /// BtnDeleteSnapshot_Click deletes the selected snapshot from
         /// the route folder after prompting the user to confirm.
         /// </summary>
