@@ -36,10 +36,10 @@ namespace HadesSaveManager {
             LoadState();
 
             if (saveFolder != "" && saveFolder != null)
-                lblSaveFolderPath.Text = saveFolder;
+                lblSaveFolderPath.Text = ShortPath(saveFolder);
 
             if (routeFolder != "" && saveFolder != null)
-                lblRouteFolderPath.Text = routeFolder;
+                lblRouteFolderPath.Text = ShortPath(routeFolder);
 
             switch (profileNum) {
                 case 1:
@@ -473,7 +473,7 @@ namespace HadesSaveManager {
             if (folderDialog.ShowDialog() == DialogResult.OK) {
                 //Get the path of specified file
                 targetVar = folderDialog.SelectedPath;
-                targetLbl.Text = targetVar;
+                targetLbl.Text = ShortPath(targetVar);
                 SaveState();
             }
         }
@@ -556,6 +556,16 @@ namespace HadesSaveManager {
             File.Delete(profileValidFile);
             File.Move(tempFile, profileValidFile);
             return true;
+        }
+
+        /// <summary>
+        /// ShortPath accepts a path as a string and returns the last two
+        /// elements in the format '.../elem-2/elem-1'
+        /// </summary>
+        /// <param name="fullPath">Target Path as a string</param>
+        /// <returns>shortened fullPath as a string.</returns>
+        private string ShortPath(string fullPath) {
+            return "..." + string.Join("/", fullPath.Split("\\").TakeLast(2));
         }
     }
 }
