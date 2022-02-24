@@ -204,8 +204,7 @@ namespace HadesSaveManager {
 
                 MakeValidCheckpoint();
 
-                File.Copy(paths["routeProfile"], paths["profile"], true);
-                File.Copy(paths["snapshot"], paths["run"], true);
+                File.Copy(paths["snapshot"], paths["profile"], true);
             }
         }
 
