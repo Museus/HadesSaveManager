@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>hsm.ico</ApplicationIcon>
     <NoWin32Manifest>true</NoWin32Manifest>
@@ -13,6 +13,8 @@
     <PackageProjectUrl>http://github.com/Museus/HadesSaveManager</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>Added work-around for 1.0 save-scum prevention.</PackageReleaseNotes>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <UseWPF>False</UseWPF>
   </PropertyGroup>
 
 </Project>
